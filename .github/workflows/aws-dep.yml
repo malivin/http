@@ -42,4 +42,4 @@ jobs:
           --auto-create-application
 
           aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} \
-            --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
+          --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
