@@ -21,8 +21,8 @@ jobs:
     - name: create zip-arch
       run: zip -r ${{env.APP_NAME}}.zip ./ -x *.git*
 #echo "Creating Source Bundle"
-    - name: lol
-      run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+#    - name: lol
+#      run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
 
     - name: Configure AWS credentials 
       uses: aws-actions/configure-aws-credentials@v1
