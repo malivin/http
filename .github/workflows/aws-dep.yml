@@ -1,4 +1,4 @@
-name: Deploy python app on AWS Elastic Beanstalk
+name: Deploy python app on AWS Elastic Beanstalk!
 
 env:
   APP_NAME: my-app
