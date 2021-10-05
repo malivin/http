@@ -2,6 +2,7 @@ name: Deploy python app on AWS Elastic Beanstalk!
 
 env:
   APP_NAME: my-app
+  ENV_NAME: Myapp-env
   S3_BUCKET: elasticbeanstalk-eu-west-1-683770257428
   AWS_REGION: eu-west-1
   AWS_PLATFORM: Python
@@ -36,8 +37,18 @@ jobs:
       run: aws s3 cp ${{env.APP_NAME}}-${{ env.PIPELINE_ID }}.zip s3://${{env.S3_BUCKET}}/ --region ${{env.AWS_REGION}}
 
           echo "Creating Elastic Beanstalk version"
-          aws elasticbeanstalk create-application-version --application-name ${{env.APP_NAME}} --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}} --region ${{env.AWS_REGION}} --source-bundle S3Bucket=${{env.S3_BUCKET}},S3Key=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}.zip --auto-create-application
+          aws elasticbeanstalk create-application-version \
+          --application-name ${{env.APP_NAME}} \
+          --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}} \
+          --region ${{env.AWS_REGION}} \
+          --source-bundle S3Bucket=${{env.S3_BUCKET}},S3Key=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}.zip \
+          --auto-create-application
 
+    - name: Deploy AWS
+      run: |
+        aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} \
+        --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
+    
   # deploy_aws:
   #   needs: [create_eb_version]
   #   runs-on: ubuntu-latest
