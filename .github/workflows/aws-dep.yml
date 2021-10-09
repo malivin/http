@@ -40,5 +40,11 @@ jobs:
           --region ${{env.AWS_REGION}} \
           --source-bundle S3Bucket=${{env.S3_BUCKET}},S3Key=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}.zip \
           --auto-create-application
+    
+    - name: Sleep for 60 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '60s'
 
-          aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
+    - name: run update environment
+      run: aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
