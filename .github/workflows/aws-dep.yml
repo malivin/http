@@ -62,5 +62,5 @@ jobs:
 
           echo "Installing Elastic Beanstalk Cli"
           aws elasticbeanstalk update-environment --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}} \
-          --environment-name=${{env.ENV_NAME}}
+          --environment-name=${{env.ENV_NAME}} --debug
     
