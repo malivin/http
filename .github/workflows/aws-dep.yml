@@ -65,11 +65,5 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install awsebcli
           eb --version
-
-          echo "Deploy init"
-          eb init -i ${{env.APP_NAME}} -p ${{env.AWS_PLATFORM}} -k ${{secrets.AWS_ID}} --region ${{env.AWS_REGION}}
-          eb deploy ${{env.APP_NAME}} --version ${AWS_VERSION_LABEL}
-          echo "Deploy finished"
-          
           aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
     
