@@ -54,7 +54,6 @@ jobs:
       - name: Configure AWS credentials 
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-id: ${{ secrets.AWS_ID }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
@@ -62,8 +61,6 @@ jobs:
           AWS_VERSION_LABEL=${{env.APP_NAME}}-${{env.PIPELINE_ID}}
 
           echo "Installing Elastic Beanstalk Cli"
-          python3 -m pip install --upgrade pip
-          pip install awsebcli
-          eb --version
-          aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}}
+          aws elasticbeanstalk update-environment --version-label ${{env.APP_NAME}}-${{env.PIPELINE_ID}} \
+          --environment-name=${{env.ENV_NAME}}
     
