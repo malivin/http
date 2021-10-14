@@ -40,6 +40,5 @@ jobs:
           --region ${{env.AWS_REGION}} \
           --source-bundle S3Bucket=${{env.S3_BUCKET}},S3Key=${{ env.APP_NAME }}-${{ env.PIPELINE_ID }}.zip \
           --auto-create-application
-    
-          aws elasticbeanstalk update-environment --version-label "${{env.APP_NAME}}-${{env.PIPELINE_ID}}" --environment-name=${{env.ENV_NAME}}
-    
+          aws elasticbeanstalk update-environment --environment-name=${{env.ENV_NAME}} --version-label "${{env.APP_NAME}}-${{env.PIPELINE_ID}}"
+
